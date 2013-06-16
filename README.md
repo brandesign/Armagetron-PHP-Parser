@@ -29,6 +29,8 @@ For example:
 The ladderlog arguments should match with your function arguments.
 The function must be static and not private.
 
+Also see example.php
+
 ## Configuration ##
 
 Configuration is done inside config.json
@@ -99,10 +101,12 @@ The script automaticly saves players and teams into memory.
 ## The Attribute class ##
 By default, encoding and game_time are stored. To get a stored value use:
     Attribute::get($key, $default); // $default is optional and will be returned if the value does not exist.
+
 To get the encoding just use:
     Attribute::get('encoding');
+
 To get the game time use:
     Attribute::get('game_time');
+
 To store your own attributes use:
     Attribute::set($key, $value);
-    

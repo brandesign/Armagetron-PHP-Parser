@@ -7,7 +7,6 @@ class Trunk extends Common
 {
     protected static function online_player($name, $ping, $team, $accessLevel)
     {
-        //list($name, $ping, $team, $accessLevel) = func_get_args();
         $player = Player::get($name);
 
         $player->accessLevel = $accessLevel;
