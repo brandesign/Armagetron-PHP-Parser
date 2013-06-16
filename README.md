@@ -124,8 +124,8 @@ The script automaticly saves players and teams into memory.
     Command::kick(Player $player);
     Command::ban_player(Player $player, $minutes = 5);
     Command::ban_ip($ip, $minutes = 5);
-    Command::sudpend(Player $player, $rounds = null);
-    Command::unsudpend(Player $player);
+    Command::suspend(Player $player, $rounds = null);
+    Command::unsuspend(Player $player);
     Command::include($filename);
     Command::sinclude($filename);
 ```

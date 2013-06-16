@@ -81,12 +81,12 @@ class Command
         self::write('BAN_IP '.$ip.' '.$minutes);
     }
 
-    public static function sudpend(Player $player, $rounds = null)
+    public static function suspend(Player $player, $rounds = null)
     {
         self::write('SUSPEND '.$player->name.' '.$rounds);
     }
 
-    public static function unsudpend(Player $player)
+    public static function unsuspend(Player $player)
     {
         self::write('UNSUSPEND '.$player->name.' '.$rounds);
     }
