@@ -4,7 +4,7 @@ define('LIB_PATH', APP_PATH.'/lib');
 
 function autoload($className)
 {
-    $className = str_replace('Armagetron\\', '', $className);
+    //$className = str_replace('Armagetron\\', '', $className);
     $parts = explode('\\', $className);
     //$file = LIB_PATH . '/' . end($parts) . '.php';
     $file = LIB_PATH . '/' . implode('/', $parts) . '.php';
