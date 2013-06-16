@@ -42,8 +42,11 @@ Configuration is done inside config.json
     }
 ```
 extraParser: 'StyCt' (sty+ct server), 'Trunk' (trunk server) or false (any other server)
+
 input: currently only supports 'stdin'
+
 output: 'stdout' or '/path/to/file'
+
 debug: true or false. Writes some debug messages into server log.
 
 ## Available Classes ##
