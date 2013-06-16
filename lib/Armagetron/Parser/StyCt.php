@@ -6,7 +6,7 @@ use Armagetron\Attribute;
 
 class StyCt extends Common
 {
-    protected static function online_player($name, $red, $green, $blue, $ping, $team)
+    protected static function online_player($name, $red, $green, $blue, $ping, $team = null)
     {
         $player = Player::get($name);
 
@@ -14,7 +14,10 @@ class StyCt extends Common
         $player->green = $green;
         $player->blue = $blue;
         $player->ping = $ping;
-        $player->team = Team::get($team);
+        if( $team )
+        {
+            $player->team = Team::get($team);
+        }
     }
 
     protected static function player_gridpos($name, $xpos, $ypos, $xdir, $ydir, $teamName)
