@@ -1,0 +1,6 @@
+{
+    "extraParser" : "StyCt",
+    "input" : "stdin",
+    "output" : "stdout",
+    "debug" : true
+}
