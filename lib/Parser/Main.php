@@ -10,6 +10,8 @@ class Main
 {
     public static function run()
     {
+        static::init();
+        
         $stdin = fopen('php://stdin', 'r');
 
         while( $line = fgets($stdin) )
