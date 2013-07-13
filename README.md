@@ -644,7 +644,7 @@ protected function flag_conquest_round_win( $event )
 ```
 	$event => Class of Armagetron\Event (
 		player => Object of Armagetron\Player
-		flag_team => string
+		flag_team => Object of Armagetron\Team
 	)
 
 ```PHP
@@ -652,7 +652,7 @@ protected function flag_drop( $event )
 ```
 	$event => Class of Armagetron\Event (
 		player => Object of Armagetron\Player
-		flag_team => string
+		flag_team => Object of Armagetron\Team
 	)
 
 ```PHP
