@@ -71,7 +71,9 @@ class Main
     }
 
     protected function init()
-    {
+    {        
+        $this->config = Config::all();
+
         if( ! $this->intern_parser )
         {
             if(Config::get('intern_parser'))
