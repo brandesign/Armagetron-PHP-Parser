@@ -26,7 +26,7 @@ class Common extends Main
             ->registerEvent('NUM_HUMANS',           array('number_humans:int') )
             ->registerEvent('ONLINE_PLAYER',        array('player:player', 'ping:float', 'team:team') )
             ->registerEvent('PLAYER_ENTERED',       array('player:player', 'ip', 'screen_name') )
-            ->registerEvent('PLAYER_LEFT',          array('player:player', 'ip') )
+            ->registerEvent('PLAYER_LEFT',          array('player', 'ip') )
             ->registerEvent('PLAYER_RENAMED',       array('player:player', 'new_name', 'ip', 'screen_name') )
             ->registerEvent('POSITIONS',            array('team:team', 'players:playerList') )
             ->registerEvent('ROUND_SCORE',          array('score:int', 'player:player', 'team:team') )
@@ -34,7 +34,7 @@ class Common extends Main
             ->registerEvent('ROUND_WINNER',         array('team:team', 'players:playerList') )
             ->registerEvent('SACRIFICE',            array('hole_user:player', 'hole_maker:player', 'wall_owner:player') )
             ->registerEvent('TEAM_CREATED',         array('team:team') )
-            ->registerEvent('TEAM_DESTROYED',       array('team:team') )
+            ->registerEvent('TEAM_DESTROYED',       array('team') )
             ->registerEvent('TEAM_PLAYER_ADDED',    array('team:team', 'player:player') )
             ->registerEvent('TEAM_PLAYER_REMOVED',  array('team:team', 'player:player') )
             ->registerEvent('TEAM_RENAMED',         array('team:team', 'new_name') )
@@ -77,7 +77,7 @@ class Common extends Main
 
     protected function player_left($event)
     {
-        Player::remove($event->player->id);
+        Player::remove($player);
     }
 
     protected function player_renamed($event)
@@ -97,7 +97,7 @@ class Common extends Main
 
     protected function team_destroyed($event)
     {
-        Team::remove($event->team->id);
+        Team::remove($team);
     }
 
     protected function team_player_added($event)

@@ -296,7 +296,7 @@ protected function player_entered( $event )
 protected function player_left( $event )
 ```
 	$event => Class of Armagetron\Event (
-		player => Object of Armagetron\Player
+		player => string
 		ip => string
 	)
 
@@ -369,7 +369,7 @@ protected function team_created( $event )
 protected function team_destroyed( $event )
 ```
 	$event => Class of Armagetron\Event (
-		team => Object of Armagetron\Team
+		team => string
 	)
 
 ```PHP
