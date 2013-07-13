@@ -30,8 +30,13 @@ class Command
         return self::$instance;
     }
 
-    public static function write($s)
+    public static function write($s, $escape = true)
     {
+        if( $escape )
+        {
+            $s = addslashes($s);
+        }
+        
         $instance = self::getInstance();
         fwrite($instance->handle, $s . $instance->EOL);
     }
