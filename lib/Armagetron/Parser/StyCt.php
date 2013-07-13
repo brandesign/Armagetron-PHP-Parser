@@ -20,7 +20,7 @@ class StyCt extends Common
             ->registerEvent('BASEZONE_CONQUERER_TEAM',  array('team:team', 'score'))
             ->registerEvent('BASE_ENEMY_RESPAWN',       array('respawner:player', 'player_respawned'))
             ->registerEvent('BASE_RESPAWN',             array('respawner:player', 'player_respawned'))
-            ->registerEvent('COMMAND',                  array('command', 'player:player', 'ip', 'access_level', 'text'))
+            ->registerEvent('COMMAND',                  array('command', 'player:player', 'ip', 'access_level:int', 'text'))
             ->registerEvent('CYCLE_CREATED',            array('player:player', 'x:float', 'y:float', 'x_dir:int', 'y_dir:int'))
             ->registerEvent('DEATH_BASEZONE_CONQUERED', array('player:player', 'enemies_in_zone:int'))
             ->registerEvent('DEATH_DEATHSHOT',          array('prey:player', 'hunter:player'))

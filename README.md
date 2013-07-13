@@ -548,7 +548,7 @@ protected function command( $event )
 		command => string
 		player => Object of Armagetron\Player
 		ip => string
-		access_level => string
+		access_level => integer
 		text => string
 	)
 
