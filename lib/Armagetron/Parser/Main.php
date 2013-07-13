@@ -10,7 +10,7 @@ use Armagetron\Event;
 class Main
 {
     protected $config;
-    private $intern_parser = null;
+    protected $intern_parser = null;
     private $intern_parser_instance = null;
     private static $instance = null;
 
@@ -68,7 +68,7 @@ class Main
         fclose($stdin);
     }
 
-    private function init()
+    protected function init()
     {
         $this->config = Config::all();
 

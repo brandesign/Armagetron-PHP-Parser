@@ -404,125 +404,6 @@ protected function wait_for_external_script( $event )
 
 ### For Trunk Servers ###
 ```PHP
-protected function admin_command( $event )
-```
-	$event => Class of Armagetron\Event (
-		player => Object of Armagetron\Player
-		ip => string
-		access_level => integer
-		command => string
-	)
-
-```PHP
-protected function admin_login( $event )
-```
-	$event => Class of Armagetron\Event (
-		player => Object of Armagetron\Player
-		ip => string
-	)
-
-```PHP
-protected function admin_logout( $event )
-```
-	$event => Class of Armagetron\Event (
-		player => Object of Armagetron\Player
-		ip => string
-	)
-
-```PHP
-protected function ball_vanish( $event )
-```
-	$event => Class of Armagetron\Event (
-		goid => string
-		zone_name => string
-		x => double
-		y => double
-	)
-
-```PHP
-protected function basezone_conquered( $event )
-```
-	$event => Class of Armagetron\Event (
-		team => Object of Armagetron\Team
-		x => double
-		y => double
-		enemies_in_zone => Array(
-			Object of Armagetron\Player
-			...
-		)
-	)
-
-```PHP
-protected function basezone_conquerer( $event )
-```
-	$event => Class of Armagetron\Event (
-		player => Object of Armagetron\Player
-		percent_won => string
-	)
-
-```PHP
-protected function basezone_conquerer_team( $event )
-```
-	$event => Class of Armagetron\Event (
-		team => Object of Armagetron\Team
-		score => string
-	)
-
-```PHP
-protected function base_enemy_respawn( $event )
-```
-	$event => Class of Armagetron\Event (
-		respawner => Object of Armagetron\Player
-		player_respawned => string
-	)
-
-```PHP
-protected function base_respawn( $event )
-```
-	$event => Class of Armagetron\Event (
-		respawner => Object of Armagetron\Player
-		player_respawned => string
-	)
-
-```PHP
-protected function command( $event )
-```
-	$event => Class of Armagetron\Event (
-		command => string
-		player => Object of Armagetron\Player
-		ip => string
-		access_level => string
-		text => string
-	)
-
-```PHP
-protected function cycle_created( $event )
-```
-	$event => Class of Armagetron\Event (
-		player => Object of Armagetron\Player
-		x => double
-		y => double
-		x_dir => integer
-		y_dir => integer
-	)
-
-```PHP
-protected function death_basezone_conquered( $event )
-```
-	$event => Class of Armagetron\Event (
-		player => Object of Armagetron\Player
-		enemies_in_zone => integer
-	)
-
-```PHP
-protected function death_deathshot( $event )
-```
-	$event => Class of Armagetron\Event (
-		prey => Object of Armagetron\Player
-		hunter => Object of Armagetron\Player
-	)
-
-```PHP
 protected function death_deathzone( $event )
 ```
 	$event => Class of Armagetron\Event (
@@ -530,14 +411,7 @@ protected function death_deathzone( $event )
 	)
 
 ```PHP
-protected function death_rubberzone( $event )
-```
-	$event => Class of Armagetron\Event (
-		player => Object of Armagetron\Player
-	)
-
-```PHP
-protected function death_self_destruct( $event )
+protected function death_explosion( $event )
 ```
 	$event => Class of Armagetron\Event (
 		prey => Object of Armagetron\Player
@@ -545,142 +419,18 @@ protected function death_self_destruct( $event )
 	)
 
 ```PHP
-protected function death_shot_frag( $event )
+protected function matches_left( $event )
 ```
 	$event => Class of Armagetron\Event (
-		prey => Object of Armagetron\Player
-		hunter => Object of Armagetron\Player
+		number_matches => integer
 	)
 
 ```PHP
-protected function death_shot_suicide( $event )
+protected function new_warmup( $event )
 ```
 	$event => Class of Armagetron\Event (
-		player => Object of Armagetron\Player
-	)
-
-```PHP
-protected function death_shot_teamkill( $event )
-```
-	$event => Class of Armagetron\Event (
-		prey => Object of Armagetron\Player
-		hunter => Object of Armagetron\Player
-	)
-
-```PHP
-protected function death_zombiezone( $event )
-```
-	$event => Class of Armagetron\Event (
-		prey => Object of Armagetron\Player
-		hunter => Object of Armagetron\Player
-	)
-
-```PHP
-protected function end_challenge( $event )
-```
-	$event => Class of Armagetron\Event (
+		number_matches => integer
 		time_string => string
-	)
-
-```PHP
-protected function flag_conquest_round_win( $event )
-```
-	$event => Class of Armagetron\Event (
-		player => Object of Armagetron\Player
-		flag_team => string
-	)
-
-```PHP
-protected function flag_drop( $event )
-```
-	$event => Class of Armagetron\Event (
-		player => Object of Armagetron\Player
-		flag_team => string
-	)
-
-```PHP
-protected function flag_held( $event )
-```
-	$event => Class of Armagetron\Event (
-		player => Object of Armagetron\Player
-	)
-
-```PHP
-protected function flag_return( $event )
-```
-	$event => Class of Armagetron\Event (
-		player => Object of Armagetron\Player
-	)
-
-```PHP
-protected function flag_score( $event )
-```
-	$event => Class of Armagetron\Event (
-		player => Object of Armagetron\Player
-		flag_team => Object of Armagetron\Team
-	)
-
-```PHP
-protected function flag_take( $event )
-```
-	$event => Class of Armagetron\Event (
-		player => Object of Armagetron\Player
-		flag_team => Object of Armagetron\Team
-	)
-
-```PHP
-protected function flag_timeout( $event )
-```
-	$event => Class of Armagetron\Event (
-		player => Object of Armagetron\Player
-		flag_team => Object of Armagetron\Team
-	)
-
-```PHP
-protected function invalid_command( $event )
-```
-	$event => Class of Armagetron\Event (
-		command => string
-		player => Object of Armagetron\Player
-		ip => string
-		access_level => integer
-		text => string
-	)
-
-```PHP
-protected function match_score( $event )
-```
-	$event => Class of Armagetron\Event (
-		score => integer
-		player => Object of Armagetron\Player
-		team => Object of Armagetron\Team
-	)
-
-```PHP
-protected function match_score_team( $event )
-```
-	$event => Class of Armagetron\Event (
-		score => integer
-		team => Object of Armagetron\Team
-		sets_won => integer
-	)
-
-```PHP
-protected function new_set( $event )
-```
-	$event => Class of Armagetron\Event (
-		sets_played => integer
-		time_string => string
-	)
-
-```PHP
-protected function next_round( $event )
-```
-	$event => Class of Armagetron\Event (
-		round => integer
-		limit_rounds => integer
-		map => string
-		round_center_message => string
 	)
 
 ```PHP
@@ -688,214 +438,25 @@ protected function online_player( $event )
 ```
 	$event => Class of Armagetron\Event (
 		player => Object of Armagetron\Player
-		r => integer
-		g => integer
-		b => integer
 		ping => double
 		team => Object of Armagetron\Team
+		access_level => integer
 	)
 
 ```PHP
-protected function player_gridpos( $event )
+protected function player_respawn( $event )
 ```
 	$event => Class of Armagetron\Event (
-		player => Object of Armagetron\Player
-		x => double
-		y => double
-		x_dir => integer
-		y_dir => integer
-		team => Object of Armagetron\Team
-	)
-
-```PHP
-protected function player_killed( $event )
-```
-	$event => Class of Armagetron\Event (
-		player => Object of Armagetron\Player
-		ip => string
-		x => double
-		y => double
-		x_dir => integer
-		y_dir => integer
-	)
-
-```PHP
-protected function player_renamed( $event )
-```
-	$event => Class of Armagetron\Event (
-		player => Object of Armagetron\Player
-		new_name => string
-		ip => string
-		authenticated => boolean
-		screen_name => string
-	)
-
-```PHP
-protected function round_commencing( $event )
-```
-	$event => Class of Armagetron\Event (
-		round => integer
-		limit_rounds => integer
-	)
-
-```PHP
-protected function set_winner( $event )
-```
-	$event => Class of Armagetron\Event (
-		team => Object of Armagetron\Team
-	)
-
-```PHP
-protected function spawn_position_team( $event )
-```
-	$event => Class of Armagetron\Event (
-		team => Object of Armagetron\Team
-		position => integer
-	)
-
-```PHP
-protected function start_challenge( $event )
-```
-	$event => Class of Armagetron\Event (
-		time_string => string
-	)
-
-```PHP
-protected function svg_created( $event )
-```
-	$event => Class of Armagetron\Event (
-	)
-
-```PHP
-protected function tactical_position( $event )
-```
-	$event => Class of Armagetron\Event (
-		time => double
-		player => Object of Armagetron\Player
-		tactical_position => string
-	)
-
-```PHP
-protected function tactical_statistics( $event )
-```
-	$event => Class of Armagetron\Event (
-		tactical_position => string
-		player => Object of Armagetron\Player
-		time => double
-		state => string
-		kills => integer
-	)
-
-```PHP
-protected function targetzone_conquered( $event )
-```
-	$event => Class of Armagetron\Event (
-		goid => integer
-		zone_name => string
-		x => double
-		y => double
 		player => Object of Armagetron\Player
 		team => Object of Armagetron\Team
-	)
-
-```PHP
-protected function targetzone_player_enter( $event )
-```
-	$event => Class of Armagetron\Event (
-		goid => integer
-		zone_name => string
-		zone_x => double
-		zone_y => double
-		player => Object of Armagetron\Player
-		player_x => double
-		player_y => double
-		player_x_dir => integer
-		player_y_dir => integer
-		time => double
-	)
-
-```PHP
-protected function targetzone_player_left( $event )
-```
-	$event => Class of Armagetron\Event (
-		goid => integer
-		zone_name => string
-		zone_x => double
-		zone_y => double
-		player => Object of Armagetron\Player
-		player_x => double
-		player_y => double
-		player_x_dir => integer
-		player_y_dir => integer
-	)
-
-```PHP
-protected function targetzone_timeout( $event )
-```
-	$event => Class of Armagetron\Event (
-		goid => string
-		zone_name => string
-		x => double
-		y => double
-	)
-
-```PHP
-protected function voter( $event )
-```
-	$event => Class of Armagetron\Event (
-		player => Object of Armagetron\Player
-		choice => boolean
-		description => string
-	)
-
-```PHP
-protected function vote_created( $event )
-```
-	$event => Class of Armagetron\Event (
-		player => Object of Armagetron\Player
-		description => string
+		respawner_team => Object of Armagetron\Team
 	)
 
 ```PHP
 protected function winzone_player_enter( $event )
 ```
 	$event => Class of Armagetron\Event (
-		goid => integer
-		zone_name => string
-		zone_x => double
-		zone_y => double
 		player => Object of Armagetron\Player
-		player_x => double
-		player_y => double
-		player_x_dir => integer
-		player_y_dir => integer
-		time => double
-	)
-
-```PHP
-protected function zone_collapsed( $event )
-```
-	$event => Class of Armagetron\Event (
-		zone_id => integer
-		zone_name => string
-		zone_x => double
-		zone_y => double
-	)
-
-```PHP
-protected function zone_spawned( $event )
-```
-	$event => Class of Armagetron\Event (
-		goid => integer
-		zone_name => string
-		x => double
-		y => double
-	)
-
-```PHP
-protected function wait_for_external_script( $event )
-```
-	$event => Class of Armagetron\Event (
 	)
 
 ### For sty+ct Servers ###
