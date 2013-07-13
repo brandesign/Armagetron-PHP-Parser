@@ -12,6 +12,7 @@ class Main
     protected $config;
     protected $intern_parser = null;
     private $intern_parser_instance = null;
+    private $delayed_commands = array();
     private static $instance = null;
 
     protected function __construct()
@@ -37,6 +38,7 @@ class Main
 
         while( $line = fgets($stdin) )
         {
+            $instance->checkDelayedCommands();
             if( Attribute::get('encoding') == 'latin1' )
             {
                 $line = utf8_encode($line);
@@ -70,8 +72,6 @@ class Main
 
     protected function init()
     {
-        $this->config = Config::all();
-
         if( ! $this->intern_parser )
         {
             if(Config::get('intern_parser'))
@@ -109,6 +109,31 @@ class Main
         Event::register($parser, $command, $args);
 
         return $this;
+    }
+
+    public function delayedCommand($delay, $command, $args = array())
+    {
+        if( ! is_array($command) )
+        {
+            $command = array($this, $command);
+        }
+
+        $trigger_time = time() + $delay;
+        $this->delayed_commands[] = array('time' => $trigger_time, 'command' => $command, 'args' => $args );
+
+        return $this;
+    }
+
+    public function checkDelayedCommands()
+    {
+        foreach($this->delayed_commands as $key => $data)
+        {
+            if( time() >= $data['time'] )
+            {
+                call_user_func_array($data['command'], $data['args']);
+                unset($this->delayed_commands[$key]);
+            }
+        }
     }
 
     public function __call($function, $args)

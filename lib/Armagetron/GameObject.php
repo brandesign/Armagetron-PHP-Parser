@@ -2,7 +2,8 @@
 
 class GameObject
 {
-    private static $objects;
+    protected static $objects = array();
+    public $name;
 
     public function __construct($props = array())
     {

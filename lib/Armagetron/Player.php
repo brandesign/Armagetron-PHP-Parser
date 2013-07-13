@@ -2,7 +2,6 @@
 
 class Player extends GameObject
 {
-    protected static $objects = array();
     public $joined = 0;
 
     public function __construct($props = array())

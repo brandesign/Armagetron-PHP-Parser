@@ -11,7 +11,7 @@ class Example extends Parser\Main
 {
     public function __construct()
     {
-        //$this->useParser('StyCt');
+        $this->useParser('StyCt');
     }
 
     protected function player_entered($event)
@@ -22,6 +22,12 @@ class Example extends Parser\Main
     protected function new_round($event)
     {
         Command::comment('I am using '.Armagetron\Attribute::memoryUsage().' memory.');
+        $this->delayedCommand(5, 'spawnZones', array(5));
+    }
+
+    public function spawnZones($num)
+    {
+        // logic to spawn $num zones
     }
 }
 

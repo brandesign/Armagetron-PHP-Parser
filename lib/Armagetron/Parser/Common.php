@@ -77,7 +77,7 @@ class Common extends Main
 
     protected function player_left($event)
     {
-        Player::remove($player);
+        Player::remove($event->player);
     }
 
     protected function player_renamed($event)
@@ -97,7 +97,7 @@ class Common extends Main
 
     protected function team_destroyed($event)
     {
-        Team::remove($team);
+        Team::remove($event->team);
     }
 
     protected function team_player_added($event)

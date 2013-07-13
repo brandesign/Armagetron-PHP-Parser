@@ -2,7 +2,6 @@
 
 class Team extends GameObject
 {
-    protected static $objects = array();
     public $players = array();
 
     public function addPlayer(Player $player)
