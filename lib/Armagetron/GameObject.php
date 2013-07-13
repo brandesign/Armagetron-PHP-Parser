@@ -10,6 +10,11 @@ class GameObject
         {
             $this->{$key} = $value;
         }
+        
+        if( ! $this->name )
+        {
+            $this->name = $this->id;
+        }
     }
 
     public static function add($id, $values = array())
@@ -17,7 +22,7 @@ class GameObject
         $object = new static($values);
         $object->id = $id;
         
-        static::$objects[$id] = $object;
+        static::$objects[] = $object;
 
         return $object;
     }
@@ -45,18 +50,15 @@ class GameObject
 
     public static function get($id)
     {
-        $object = @static::$objects[$id];
-
-        if( ! $object )
+        foreach( static::getAll() as $object )
         {
-            if( Config::get('debug') )
+            if( $object->id == $id )
             {
-                Command::comment('Tried to get non existant '.get_called_class().' with ID: '.$id);
+                return $object;
             }
-            return static::add($id);
         }
-
-        return $object;
+        
+        return static::add($id);
     }
 
     public static function getAll()
@@ -66,7 +68,13 @@ class GameObject
 
     public static function remove($id)
     {
-        unset(static::$objects[$id]);
+        foreach(static::getAll() as $key => $object)
+        {
+            if($object->id == $id)
+            {
+                unset(static::$objects[$key]);
+            }
+        }
     }
 
     public static function count()

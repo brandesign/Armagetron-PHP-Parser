@@ -15,7 +15,6 @@ function autoload($className)
     }
     else
     {
-        echo 'Try to load '.$className.' from '.$file;
         throw new \Exception('Class '.$file.' not found.');
     }
 }

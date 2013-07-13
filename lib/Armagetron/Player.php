@@ -5,6 +5,13 @@ class Player extends GameObject
     protected static $objects = array();
     public $joined = 0;
 
+    public function __construct($props = array())
+    {
+        $this->joined = time();
+
+        parent::__construct($props);
+    }
+
     public function message($message)
     {
         if( $this->is_human )

@@ -1,32 +1,28 @@
 #!/usr/bin/php
-<?php namespace Armagetron;
+<?php
 require_once('bootstrap.php');
 
-class Parser extends Parser\Main
+use Armagetron\Parser;
+use Armagetron\Player;
+use Armagetron\Team;
+use Armagetron\Command;
+
+class Example extends Parser\Main
 {
-    protected static function init()
+    public function __construct()
     {
-        // some settings
-        Attribute::set('write_memory_usage', true);
+        //$this->useParser('StyCt');
     }
 
-    protected static function player_entered($name, $ip, $screenName)
+    protected function player_entered($event)
     {
-        Player::get($name)->message('Welcome '.$screenName.'!');
+        $event->player->message('Welcome '.$event->screen_name.'!');
     }
 
-    protected static function new_round()
+    protected function new_round($event)
     {
-        foreach(Player::getAll() as $player)
-        {
-            $player->message('You are online since '.$player->online_time().' seconds.');
-        }
-
-        if( Attribute::get('write_memory_usage') )
-        {
-            Command::comment('I am using '.Attribute::memoryUsage().' memory.');
-        }
+        Command::comment('I am using '.Armagetron\Attribute::memoryUsage().' memory.');
     }
 }
 
-Parser::run();
+Example::run();

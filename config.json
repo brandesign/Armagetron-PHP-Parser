@@ -1,5 +1,5 @@
 {
-    "extraParser" : "StyCt",
+    "intern_parser" : false,
     "input" : "stdin",
     "output" : "stdout",
     "debug" : true

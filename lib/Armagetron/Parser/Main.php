@@ -5,13 +5,34 @@ use Armagetron\Command;
 use Armagetron\Player;
 use Armagetron\Team;
 use Armagetron\Attribute;
+use Armagetron\Event;
 
 class Main
 {
+    protected $config;
+    private $intern_parser = null;
+    private $intern_parser_instance = null;
+    private static $instance = null;
+
+    protected function __construct()
+    {
+        
+    }
+
+    public static function getInstance()
+    {
+        if( ! self::$instance )
+        {
+            self::$instance = new static;
+        }
+
+        return self::$instance;
+    }
+
     public static function run()
     {
-        static::init();
-        
+        $instance = self::getInstance()->init();
+
         $stdin = fopen('php://stdin', 'r');
 
         while( $line = fgets($stdin) )
@@ -27,60 +48,70 @@ class Main
             }
 
             $args = explode(' ', $line, 2);
-            $event = strtolower($args[0]);
+            $command = strtolower($args[0]);
             $args = @$args[1];
-
-            if( Config::get('extraParser') )
+            
+            try
             {
-                static::callParser(Config::get('extraParser'), $event, $args);
+                $event = new Event($command, $args, $instance->intern_parser);
             }
-            else
+            catch( \Exception $e )
             {
-                static::callParser('Common', $event, $args);
+                Command::comment($e->getMessage());
+                continue;
             }
 
-            static::callParser('static', $event, $args);
-
-            static::mainLoop();
+            $instance->intern_parser_instance->$command( $event );
+            $instance->$command( $event );
         }
 
         fclose($stdin);
     }
 
-    private static function callParser($parser, $event, $args)
+    private function init()
     {
-        if( $parser == 'static' )
+        $this->config = Config::all();
+
+        if( ! $this->intern_parser )
         {
-            $call = get_called_class().'::'.$event;
-        }
-        else
-        {
-            $parser = 'Armagetron\\Parser\\'.$parser;
-            $call = $parser.'::'.$event;
+            if(Config::get('intern_parser'))
+            {
+                $intern_parser = Config::get('intern_parser');
+            }
+            else
+            {
+                $intern_parser = 'Common';
+            }
+            
+            $this->useParser($intern_parser);
         }
 
-        try
+        return $this;
+    }
+
+    public function useParser($parser)
+    {
+        $class = __NAMESPACE__.'\\'.$parser;
+        if( ! class_exists($class) )
         {
-            $method = new \ReflectionMethod($call);
-        }
-        catch( \ReflectionException $e )
-        {
-            //Command::comment($e->getMessage());
-            return;
+            throw new \Exception('Parser '.$class.' does not exist.');
         }
 
-        $numArgs = $method->getNumberOfParameters();
-        $args = explode(' ', $args, $numArgs);
+        $this->intern_parser = $class;
+        $this->intern_parser_instance = new $class();
 
-        call_user_func_array(array($parser, $event), $args);
+        return $this;
+    }
+
+    public function registerEvent($command, array $args = array())
+    {
+        $parser = get_called_class();
+        Event::register($parser, $command, $args);
+
+        return $this;
     }
 
     public function __call($function, $args)
-    {
-        return;
-    }
-
-    public static function __callStatic($function, $args)
     {
         return;
     }

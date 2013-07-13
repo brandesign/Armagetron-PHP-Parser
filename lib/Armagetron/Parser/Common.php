@@ -7,95 +7,114 @@ use Armagetron\Attribute;
 
 class Common extends Main
 {
-    protected static function encoding($encoding)
+    protected function __construct()
     {
-        Attribute::set('encoding', $encoding);
+        $this->registerEvent('AUTHORITY_BLURB',     array('blurb', 'player:player', 'text') )
+            ->registerEvent('BASEZONE_CONQUERED',   array('team:team', 'x:float', 'y:float') )
+            ->registerEvent('BASEZONE_CONQUERER',   array('player:player') )
+            ->registerEvent('CHAT',                 array('player:player', 'text') )
+            ->registerEvent('COMMAND',              array('command', 'player:player', 'text') )
+            ->registerEvent('DEATH_FRAG',           array('prey:player', 'hunter:player') )
+            ->registerEvent('DEATH_SUICIDE',        array('player:player') )
+            ->registerEvent('DEATH_TEAMKILL',       array('prey:player', 'hunter:player') )
+            ->registerEvent('ENCODING',             array('charset') )
+            ->registerEvent('GAME_END',             array('time_string') )
+            ->registerEvent('GAME_TIME',            array('time:int') )
+            ->registerEvent('MATCH_WINNER',         array('team:team', 'players:playerList' ) )
+            ->registerEvent('NEW_MATCH',            array('time_string') )
+            ->registerEvent('NEW_ROUND',            array('time_string') )
+            ->registerEvent('NUM_HUMANS',           array('number_humans:int') )
+            ->registerEvent('ONLINE_PLAYER',        array('player:player', 'ping:float', 'team:team') )
+            ->registerEvent('PLAYER_ENTERED',       array('player:player', 'ip', 'screen_name') )
+            ->registerEvent('PLAYER_LEFT',          array('player:player', 'ip') )
+            ->registerEvent('PLAYER_RENAMED',       array('player:player', 'new_name', 'ip', 'screen_name') )
+            ->registerEvent('POSITIONS',            array('team:team', 'players:playerList') )
+            ->registerEvent('ROUND_SCORE',          array('score:int', 'player:player', 'team:team') )
+            ->registerEvent('ROUND_SCORE_TEAM',     array('score:int', 'team:team') )
+            ->registerEvent('ROUND_WINNER',         array('team:team', 'players:playerList') )
+            ->registerEvent('SACRIFICE',            array('hole_user:player', 'hole_maker:player', 'wall_owner:player') )
+            ->registerEvent('TEAM_CREATED',         array('team:team') )
+            ->registerEvent('TEAM_DESTROYED',       array('team:team') )
+            ->registerEvent('TEAM_PLAYER_ADDED',    array('team:team', 'player:player') )
+            ->registerEvent('TEAM_PLAYER_REMOVED',  array('team:team', 'player:player') )
+            ->registerEvent('TEAM_RENAMED',         array('team:team', 'new_name') )
+            ->registerEvent('WAIT_FOR_EXTERNAL_SCRIPT');
     }
 
-    protected static function game_time($time)
+    protected function encoding($event)
     {
-        Attribute::set('game_time', $time);
+        Attribute::set('encoding', $event->charset);
     }
 
-    protected static function num_humans($num)
+    protected function game_time($event)
     {
-        Attribute::set('human_players', $num);
+        Attribute::set('game_time', $event->time);
     }
 
-    protected static function online_player($name, $ping, $team)
+    protected function num_humans($event)
     {
-        $player = Player::get($name);
-
-        if( ! $player )
-        {
-            $player = Player::add($name);
-        }
-
-        $player->ping = $ping;
-        $player->team = Team::get($team);
+        Attribute::set('number_humans', $event->number_humans);
     }
 
-    protected static function player_entered($name, $ip, $screenName)
+    protected function online_player($event)
     {
-        $player = array(
-            'name'  => $name,
-            'ip'    => $ip,
-            'screenName' => $screenName,
-            'joined'    => time(),
-            'is_human'  => true,
-        );
-        Player::add($name, $player);
+        $player = $event->player;
+
+        $player->ping = $event->ping;
+        $player->team = $event->team;
     }
 
-    protected static function player_left($name, $ip)
+    protected function player_entered($event)
     {
-        Player::remove($name);
+        $player = $event->player;
+
+        $player->name       = $player->id;
+        $player->ip         = $event->ip;
+        $player->screen_name = $event->screen_name;
+        $player->joined      = time();
+        $player->is_human   = true;
     }
 
-    protected static function player_renamed($old, $new, $ip, $screenName)
+    protected function player_left($event)
     {
-        $player = array(
-            'name'  => $new,
-            'ip'    => $ip,
-            'screenName' => $screenName,
-        );
-
-        Player::update($old, $new, $player);
+        Player::remove($event->player->id);
     }
 
-    protected static function team_created($team)
+    protected function player_renamed($event)
     {
-        Team::add($team);
+        $player = $event->player;
+        
+        $player->id = $event->new_name;
+        $player->name = $event->new_name;
+        $player->screen_name = $event->screen_name;
+        $player->ip = $event->ip;
     }
 
-    protected static function team_destroyed($team)
+    protected function team_created($event)
     {
-        Team::remove($team);
+        //Team::add($event->team);
     }
 
-    protected static function team_player_added($team, $player)
+    protected function team_destroyed($event)
     {
-        Team::get($team)->addPlayer(Player::get($player));
-        /*
-        $team = Team::get($team);
-        $player = Player::get($player);
-
-        $team->addPlayer($player);
-        */
+        Team::remove($event->team->id);
     }
 
-    protected static function team_player_removed($team, $player)
+    protected function team_player_added($event)
     {
-        Team::get($team)->removePlayer(Player::get($player));
+        $event->team->addPlayer($event->player);
     }
 
-    protected static function team_renamed($old, $new)
+    protected function team_player_removed($event)
     {
-        Team::update($old, $new);
+        $event->team->removePlayer($event->player);
     }
 
-    public static function __callStatic($function, $args)
+    protected function team_renamed($event)
     {
-        return;
+        $team = $event->team;
+        
+        $team->id = $event->id;
+        $team->name = $event->new_name;
     }
 }

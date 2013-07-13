@@ -5,17 +5,23 @@ use Armagetron\Team;
 
 class Trunk extends Common
 {
-    protected static function online_player($name, $ping, $team, $accessLevel)
+    protected function __construct()
     {
-        $player = Player::get($name);
-
-        $player->accessLevel = $accessLevel;
-        $player->ping = $ping;
-        $player->team = Team::get($team);
+        $this->registerEvent('DEATH_DEATHZONE', array('player:player') )
+            ->registerEvent('DEATH_EXPLOSION', array('prey:player', 'hunter:player') )
+            ->registerEvent('MATCHES_LEFT', array('number_matches:int') )
+            ->registerEvent('NEW_WARMUP', array('number_matches:int', 'time_string') )
+            ->registerEvent('ONLINE_PLAYER', array('player:player', 'ping:float', 'team:team', 'access_level:int') )
+            ->registerEvent('PLAYER_RESPAWN', array('player:player', 'team:team', 'respawner_team:team') )
+            ->registerEvent('WINZONE_PLAYER_ENTER', array('player:player') );
     }
 
-    public static function __callStatic($function, $args)
+    protected function online_player( $event )
     {
-        call_user_func_array(array('Common', $function), $args);
+        $player = $event->player;
+
+        $player->accessLevel = $event->access_level;
+        $player->ping = $event->ping;
+        $player->team = $event->team;
     }
 }
