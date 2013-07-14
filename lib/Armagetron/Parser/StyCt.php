@@ -82,6 +82,15 @@ class StyCt extends Common
             ->registerEvent('ZONE_SPAWNED',             array('goid:int', 'zone_name', 'x:float', 'y:float'))
             ->registerEvent('WAIT_FOR_EXTERNAL_SCRIPT');
     }
+    
+    protected function invalid_command($event)
+    {
+        $player = $event->player;
+        
+        $player->access_level = $event->access_level;
+        
+        CustomCommand::call($event->command, $event->text, $player);
+    }
 
     protected function online_player($event)
     {

@@ -7,11 +7,25 @@ use Armagetron\Player;
 use Armagetron\Team;
 use Armagetron\Command;
 
+class CustomCommand extends Parser\CustomCommand
+{
+    public function __construct()
+    {
+        $this->setAccessLevel('testing', 19);
+    }
+    
+    public function testing($args, $caller)
+    {
+        $caller->message('You called custom command testing with args '.$args);
+    }
+}
+
 class Example extends Parser\Main
 {
     public function __construct()
     {
         $this->useParser('StyCt');
+        Parser\CustomCommand::registerHandler(new CustomCommand());
     }
 
     protected function player_entered($event)

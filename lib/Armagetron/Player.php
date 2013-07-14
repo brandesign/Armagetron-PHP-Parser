@@ -3,6 +3,7 @@
 class Player extends GameObject
 {
     public $joined = 0;
+    public $access_level = 20;
 
     public function __construct($props = array())
     {
