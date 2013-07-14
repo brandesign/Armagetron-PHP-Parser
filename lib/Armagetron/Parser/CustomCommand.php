@@ -1,6 +1,5 @@
 <?php namespace Armagetron\Parser;
 
-use Armagetron\Command;
 use Armagetron\Player;
 
 class CustomCommand
@@ -29,7 +28,7 @@ class CustomCommand
 
             if( $reflector->hasMethod($command) )
             {
-                self::execute($handler, $command, $args, $player);
+                $handler->execute($command, $args, $player);
                 $command_is_valid = true;
             }
         }
@@ -40,15 +39,15 @@ class CustomCommand
         }
     }
     
-    private static function execute($handler, $command, $args, Player $player)
+    protected function execute($command, $args, Player $player)
     {
-        if( $handler->getAccessLevel($command) < $player->access_level )
+        if( $this->getAccessLevel($command) < $player->access_level )
         {
             $player->message('Your access level is not high enough to call '.$command);
             return;
         }
         
-        return $handler->$command($args, $player);
+        return $this->$command($args, $player);
     }
     
     public function setAccessLevel($command, $level = 20)

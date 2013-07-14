@@ -41,6 +41,11 @@ class Common extends Main
             ->registerEvent('WAIT_FOR_EXTERNAL_SCRIPT');
     }
 
+    protected function command($event)
+    {
+        CustomCommand::call($event->command, $event->text, $event->player);
+    }
+    
     protected function encoding($event)
     {
         Attribute::set('encoding', $event->charset);

@@ -83,13 +83,18 @@ class StyCt extends Common
             ->registerEvent('WAIT_FOR_EXTERNAL_SCRIPT');
     }
     
-    protected function invalid_command($event)
+    protected function command($event)
     {
         $player = $event->player;
         
         $player->access_level = $event->access_level;
         
         CustomCommand::call($event->command, $event->text, $player);
+    }
+    
+    protected function invalid_command($event)
+    {
+        $this->command($event);
     }
 
     protected function online_player($event)
