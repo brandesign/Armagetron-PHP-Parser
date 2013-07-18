@@ -73,6 +73,10 @@ The script automaticly saves players and teams into memory.
     $player->joined // timestamp
     $player->is_human
     $player->team // Team object
+    $player->team_kills
+    $player->kills
+    $player->deaths
+    $player->suicides
 ```
 #### Available in StyCt ####
 ```PHP
