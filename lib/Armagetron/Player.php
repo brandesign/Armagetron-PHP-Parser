@@ -5,6 +5,11 @@ class Player extends GameObject
     public $joined = 0;
     public $access_level = 20;
 
+    public $kills = 0;
+    public $team_kills = 0;
+    public $deaths = 0;
+    public $suicides = 0;
+
     public function __construct($props = array())
     {
         $this->joined = time();

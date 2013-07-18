@@ -34,7 +34,7 @@ class Command
     {
         if( $escape )
         {
-            $s = addslashes($s);
+            $s = preg_replace('@\\\@', "\\\\", $s);
         }
         
         $instance = self::getInstance();
@@ -63,7 +63,7 @@ class Command
 
     public static function player_message(Player $player, $message)
     {
-        self::write('PLAYER_MESSAGE '.$player->name.' "'.$message.'"');
+        self::write('PLAYER_MESSAGE '.$player->name.' "'.$message.'"', false);
     }
 
     public static function kill(Player $player)

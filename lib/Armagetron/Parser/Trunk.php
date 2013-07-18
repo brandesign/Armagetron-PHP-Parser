@@ -16,6 +16,17 @@ class Trunk extends Common
             ->registerEvent('WINZONE_PLAYER_ENTER', array('player:player') );
     }
 
+    protected function death_explosion($event)
+    {
+        $event->prey->deaths += 1;
+        $event->hunter->kills += 1;
+    }
+
+    protected function death_deathzone($event)
+    {
+        $event->player->deaths += 1;
+    }
+
     protected function online_player( $event )
     {
         $player = $event->player;

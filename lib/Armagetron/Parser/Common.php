@@ -41,6 +41,23 @@ class Common extends Main
             ->registerEvent('WAIT_FOR_EXTERNAL_SCRIPT');
     }
 
+    protected function death_frag($event)
+    {
+        $event->prey->deaths += 1;
+        $event->hunter->kills += 1;
+    }
+
+    protected function death_teamkill($event)
+    {
+        $event->prey->deaths += 1;
+        $event->hunter->team_kills += 1;
+    }
+
+    protected function death_suicide($event)
+    {
+        $event->player->suicides += 1;
+    }
+
     protected function command($event)
     {
         CustomCommand::call($event->command, $event->text, $event->player);

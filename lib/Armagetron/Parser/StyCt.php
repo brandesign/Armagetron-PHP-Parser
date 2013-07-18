@@ -82,6 +82,50 @@ class StyCt extends Common
             ->registerEvent('ZONE_SPAWNED',             array('goid:int', 'zone_name', 'x:float', 'y:float'))
             ->registerEvent('WAIT_FOR_EXTERNAL_SCRIPT');
     }
+
+    protected function death_deathshot($event)
+    {
+        $event->prey->deaths += 1;
+        $event->hunter->kills += 1;
+    }
+    
+    protected function death_deathzone($event)
+    {
+        $event->player->deaths += 1;
+    }
+
+    protected function death_rubberzone($event)
+    {
+        $event->player->deaths += 1;
+    }
+
+    protected function death_self_destruct($event)
+    {
+        $event->player->suicides += 1;
+    }
+
+    protected function death_shot_frag($event)
+    {
+        $event->prey->deaths += 1;
+        $event->hunter->kills += 1;
+    }
+
+    protected function death_shot_suicide($event)
+    {
+        $event->player->suicides += 1;
+    }
+
+    protected function death_shot_teamkill($event)
+    {
+        $event->prey->deaths += 1;
+        $event->hunter->team_kills += 1;
+    }
+
+    protected function death_zombiezone($event)
+    {
+        $event->prey->deaths += 1;
+        $event->hunter->kills += 1;
+    }
     
     protected function command($event)
     {
