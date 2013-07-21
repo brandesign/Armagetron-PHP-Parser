@@ -2,5 +2,9 @@
     "intern_parser" : false,
     "input" : "stdin",
     "output" : "stdout",
-    "debug" : true
+    "debug" : true,
+    "server_list_urls" : [
+    	"http://wrtlprnft.ath.cx/serverlist/serverxml.php",
+		"http://crazy-tronners.com/grid/serverxml.php"
+    ]
 }
