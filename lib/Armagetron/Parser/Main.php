@@ -34,19 +34,20 @@ class Main
     {
         $instance = self::getInstance()->init();
 
-        $stdin = fopen('php://stdin', 'r');
-
-        while( $line = fgets($stdin) )
+        while( ! feof(STDIN) )
         {
+            $line = trim( fgets(STDIN) );
+            
             $instance->checkDelayedCommands();
+            
+            if( ! $line OR '' == $line )
+            {
+                continue;
+            }
+            
             if( Attribute::get('encoding') == 'latin1' )
             {
                 $line = utf8_encode($line);
-            }
-
-            if('' == ($line = trim($line)))
-            {
-                continue;
             }
 
             $args = explode(' ', $line, 2);
@@ -66,8 +67,6 @@ class Main
             $instance->intern_parser_instance->$command( $event );
             $instance->$command( $event );
         }
-
-        fclose($stdin);
     }
 
     protected function init()
