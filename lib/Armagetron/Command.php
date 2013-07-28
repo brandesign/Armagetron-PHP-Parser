@@ -76,6 +76,16 @@ class Command
         self::write('KICK '.$player->name);
     }
 
+    public static function move_to(Player $player, $host, $port)
+    {
+        self::write('MOVE_TO '.$player->name." $host $port");
+    }
+
+    public static function kick_to(Player $player, $host, $port)
+    {
+        self::write('KICK_TO '.$player->name." $host $port");
+    }
+
     public static function ban_player(Player $player, $minutes = 5)
     {
         self::write('BAN '.$player->name.' '.$minutes);

@@ -44,6 +44,16 @@ class Player extends GameObject
         return $this;
     }
 
+    public function kick_to($host, $port)
+    {
+        Command::kick_to($this, $host, $port);
+    }
+
+    public function move_to($host, $port)
+    {
+        Command::move_to($this, $host, $port);
+    }
+
     public function ban()
     {
         if( $this->is_human )
