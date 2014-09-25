@@ -1,5 +1,5 @@
 {
-    "name": "armagetron/php-parser",
+    "name": "armagetron/ladderlog-parser",
     "type": "library",
     "description": "A framework to handle ladderlog input from ArmagetronAd",
     "keywords": ["armagetron","parser"],
