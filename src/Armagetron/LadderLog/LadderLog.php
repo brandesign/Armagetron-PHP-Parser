@@ -67,7 +67,27 @@ class LadderLog
         return $this->loop;
     }
 
-    public function handleData($line)
+    public function handleData($data)
+    {
+        $lines = explode("\n", $data);
+
+        if( empty($lines) )
+        {
+            if( $data )
+            {
+                $this->handleLine($data);
+            }
+        }
+        else
+        {
+            foreach($lines as $line)
+            {
+                $this->handleLine($line);
+            }
+        }
+    }
+
+    public function handleLine($line)
     {
         $line = trim($line);
 
