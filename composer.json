@@ -1,0 +1,12 @@
+{
+    "require": {
+        "react/stream": "0.5.*@dev",
+        "react/event-loop": "0.4.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Armagetron": "src",
+            "Example": "src"
+        }
+    }
+}
