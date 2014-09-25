@@ -1,5 +1,20 @@
 {
+    "name": "armagetron/php-parser",
+    "type": "library",
+    "description": "A framework to handle ladderlog input from ArmagetronAd",
+    "keywords": ["armagetron","parser"],
+    "homepage": "https://github.com/brandesign/Armagetron-PHP-Parser",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "David Brandes",
+            "email": "david.brandes@gmail.com",
+            "homepage": "http://brandesign.org",
+            "role": "Developer"
+        }
+    ],
     "require": {
+        "php": ">=5.4.0",
         "react/stream": "0.5.*@dev",
         "react/event-loop": "0.4.*"
     },
