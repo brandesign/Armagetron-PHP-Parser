@@ -15,6 +15,20 @@ class Event
     {
         $this->game_objects = $game_objects;
 
+        if( count($arguments) > count($definitions) )
+        {
+            $new_args = array();
+
+            for($i = 0; $i < count($definitions) - 1; $i++)
+            {
+                $new_args[] = array_shift($arguments);
+            }
+
+            $new_args[] = implode(' ', $arguments);
+
+            $arguments = $new_args;
+        }
+
         foreach( $definitions as $key => $definition )
         {
             $definition = trim($definition);
