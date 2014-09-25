@@ -157,7 +157,7 @@ class Parser implements ParserInterface
             ->add('ROUND_WINNER',                array('team:team', 'players:playerList'))
             ->add('SACRIFICE',                   array('hole_user:player', 'hole_maker:player', 'wall_owner:player'))
             ->add('TEAM_CREATED',                array('team:team'))
-            ->add('TEAM_DESTROYED',              array('team'))
+            ->add('TEAM_DESTROYED',              array('team:team'))
             ->add('TEAM_PLAYER_ADDED',           array('team:team', 'player:player'))
             ->add('TEAM_PLAYER_REMOVED',         array('team:team', 'player:player'))
             ->add('TEAM_RENAMED',                array('team:team', 'new_name'))
