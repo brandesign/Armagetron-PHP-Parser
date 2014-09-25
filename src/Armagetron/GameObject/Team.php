@@ -2,7 +2,9 @@
 
 namespace Armagetron\GameObject;
 
-class Team implements GameObjectInterface
+use Armagetron\Server\Command;
+
+class Team extends GameObject implements GameObjectInterface
 {
     public $id;
     protected $players;
@@ -31,5 +33,10 @@ class Team implements GameObjectInterface
     public function getPlayers()
     {
         return $this->players;
+    }
+
+    public function addScore($amount)
+    {
+        Command::addScoreTeam($this, $amount);
     }
 }

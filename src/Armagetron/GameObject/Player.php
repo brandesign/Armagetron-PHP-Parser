@@ -4,7 +4,7 @@ namespace Armagetron\GameObject;
 
 use Armagetron\Server\Command;
 
-class Player implements GameObjectInterface
+class Player extends GameObject implements GameObjectInterface
 {
     public $id;
     public $name            = null;

@@ -4,6 +4,7 @@ namespace Armagetron\Server;
 
 use Armagetron\LadderLog\LadderLog;
 use Armagetron\GameObject\Player;
+use Armagetron\GameObject\Team;
 use React\Stream\Stream;
 
 class Command
@@ -110,5 +111,10 @@ class Command
     public static function sinclude($file)
     {
         self::raw('SINCLUDE '.$file);
+    }
+
+    public static function addScoreTeam(Team $team, $amount)
+    {
+        self::raw(sprintf("ADD_SCORE_TEAM %s %d", $team->getId(), $amount));
     }
 }

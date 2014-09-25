@@ -2,7 +2,7 @@
 
 namespace Armagetron\GameObject;
 
-class Zone implements GameObjectInterface
+class Zone extends GameObject implements GameObjectInterface
 {
     public $id;
 
