@@ -15,7 +15,7 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "react/stream": "0.5.*@dev",
+        "react/stream": "0.4.*",
         "react/event-loop": "0.4.*"
     },
     "autoload": {
