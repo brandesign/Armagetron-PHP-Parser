@@ -67,6 +67,14 @@ class LadderLog
         return $this->loop;
     }
 
+    /**
+     * @return GameObjectCollection
+     */
+    public function getGameObjects()
+    {
+        return $this->getGameObjects();
+    }
+
     public function handleData($data)
     {
         $lines = explode("\n", $data);

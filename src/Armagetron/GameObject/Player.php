@@ -38,6 +38,11 @@ class Player extends GameObject implements GameObjectInterface
 
     public function getScreenName()
     {
+        if( ! $this->screen_name )
+        {
+            $this->screen_name = $this->getId();
+        }
+
         return $this->screen_name;
     }
 
