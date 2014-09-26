@@ -122,4 +122,9 @@ class Player extends GameObject implements GameObjectInterface
 
         return $this;
     }
+
+    public function respawn($x, $y, $dir_x, $dir_y, $show_message = true)
+    {
+        Command::respawnPlayer($this, $x, $y, $dir_x, $dir_y, $show_message);
+    }
 }

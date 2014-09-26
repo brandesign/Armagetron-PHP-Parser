@@ -117,4 +117,9 @@ class Command
     {
         self::raw(sprintf("ADD_SCORE_TEAM %s %d", $team->getId(), $amount));
     }
+
+    public static function respawnPlayer(Player $player, $x, $y, $dir_x, $dir_y, $show_message = true)
+    {
+        self::raw(sprintf("RESPAWN_PLAYER %s %d %s %s %d %d", $player->getId(), $show_message, $x, $y, $dir_x, $dir_y));
+    }
 }
