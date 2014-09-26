@@ -65,32 +65,32 @@ class Command
 
     public static function playerMessage(Player $player, $message)
     {
-        self::raw('PLAYER_MESSAGE '.$player->name.' "'.$message.'"', false);
+        self::raw('PLAYER_MESSAGE '.$player->getId().' "'.$message.'"', false);
     }
 
     public static function kill(Player $player)
     {
-        self::raw('KILL '.$player->name);
+        self::raw('KILL '.$player->getId());
     }
 
     public static function kick(Player $player)
     {
-        self::raw('KICK '.$player->name);
+        self::raw('KICK '.$player->getId());
     }
 
     public static function moveTo(Player $player, $host, $port)
     {
-        self::raw('MOVE_TO '.$player->name." $host $port");
+        self::raw('MOVE_TO '.$player->getId()." $host $port");
     }
 
     public static function kickTo(Player $player, $host, $port)
     {
-        self::raw('KICK_TO '.$player->name." $host $port");
+        self::raw('KICK_TO '.$player->getId()." $host $port");
     }
 
     public static function banPlayer(Player $player, $minutes = 5)
     {
-        self::raw('BAN '.$player->name.' '.$minutes);
+        self::raw('BAN '.$player->getId().' '.$minutes);
     }
 
     public static function banIp($ip, $minutes = 5)
@@ -100,12 +100,12 @@ class Command
 
     public static function suspend(Player $player, $rounds = null)
     {
-        self::raw('SUSPEND '.$player->name.' '.$rounds);
+        self::raw('SUSPEND '.$player->getId().' '.$rounds);
     }
 
     public static function unsuspend(Player $player)
     {
-        self::raw('UNSUSPEND '.$player->name);
+        self::raw('UNSUSPEND '.$player->getId());
     }
 
     public static function sinclude($file)
