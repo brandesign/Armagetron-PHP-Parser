@@ -8,6 +8,7 @@ class Player extends GameObject implements GameObjectInterface
 {
     public $id;
     public $name            = null;
+    public $screen_name     = null;
     public $ip              = null;
     public $joined          = 0;
     public $access_level    = 20;
@@ -28,6 +29,16 @@ class Player extends GameObject implements GameObjectInterface
     public function getId()
     {
         return $this->id;
+    }
+
+    public function getName()
+    {
+        return $this->getId();
+    }
+
+    public function getScreenName()
+    {
+        return $this->screen_name;
     }
 
     public function setTeam(Team $team)
