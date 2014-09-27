@@ -4,6 +4,8 @@ namespace Armagetron\Parser;
 
 use Armagetron\Event\Event;
 use Armagetron\LadderLog\LadderLog;
+use Armagetron\GameObject\Player;
+use Armagetron\GameObject\Zone;
 
 class StyCt extends Parser implements ParserInterface
 {
@@ -105,6 +107,83 @@ class StyCt extends Parser implements ParserInterface
         $player->authenticated = (bool)$event->authenticated;
     }
 
+    public function targetzoneConquered(Event $event)
+    {
+        /* @var Zone $zone */
+        $zone = $event->zone;
+        $zone->name = $event->zone_name;
+        $zone->x    = $event->zone_x;
+        $zone->y    = $event->zone_y;
+
+        /* @var PLayer $player */
+        $player = $event->player;
+        $player->x      = $event->player_x;
+        $player->y      = $event->player_y;
+        $player->x_dir  = $event->player_x_dir;
+        $player->y_dir  = $event->player_y_dir;
+    }
+
+    public function targetzonePlayerLeft(Event $event)
+    {
+        /* @var Zone $zone */
+        $zone = $event->zone;
+        $zone->name = $event->zone_name;
+        $zone->x    = $event->zone_x;
+        $zone->y    = $event->zone_y;
+
+        /* @var PLayer $player */
+        $player = $event->player;
+        $player->x      = $event->player_x;
+        $player->y      = $event->player_y;
+        $player->x_dir  = $event->player_x_dir;
+        $player->y_dir  = $event->player_y_dir;
+    }
+
+    public function targetzoneTimeout(Event $event)
+    {
+        /* @var Zone $zone */
+        $zone = $event->zone;
+        $zone->name = $event->zone_name;
+        $zone->x    = $event->zone_x;
+        $zone->y    = $event->zone_y;
+    }
+
+    public function winzonePlayerEnter(Event $event)
+    {
+        /* @var Zone $zone */
+        $zone = $event->zone;
+        $zone->name = $event->zone_name;
+        $zone->x    = $event->zone_x;
+        $zone->y    = $event->zone_y;
+
+        /* @var PLayer $player */
+        $player = $event->player;
+        $player->x      = $event->player_x;
+        $player->y      = $event->player_y;
+        $player->x_dir  = $event->player_x_dir;
+        $player->y_dir  = $event->player_y_dir;
+    }
+
+    public function zoneCollapsed(Event $event)
+    {
+        /* @var Zone $zone */
+        $zone = $event->zone;
+        $zone->name = $event->zone_name;
+        $zone->x    = $event->zone_x;
+        $zone->y    = $event->zone_y;
+
+        $event->getGameObjects()->remove($zone->getId());
+    }
+
+    public function zoneSpawned(Event $event)
+    {
+        /* @var Zone $zone */
+        $zone = $event->zone;
+        $zone->name = $event->zone_name;
+        $zone->x    = $event->zone_x;
+        $zone->y    = $event->zone_y;
+    }
+
     public function setEventDefinitions()
     {
         parent::setEventDefinitions();
@@ -154,31 +233,31 @@ class StyCt extends Parser implements ParserInterface
             ->add('SVG_CREATED')
             ->add('TACTICAL_POSITION',        array('time:float', 'player:player', 'tactical_position'))
             ->add('TACTICAL_STATISTICS',      array('tactical_position', 'player:player', 'time:float', 'state', 'kills:int'))
-            ->add('TARGETZONE_CONQUERED',     array('goid:int', 'zone_name', 'x:float', 'y:float', 'player:player', 'team:team'))
+            ->add('TARGETZONE_CONQUERED',     array('zone:zone', 'zone_name', 'x:float', 'y:float', 'player:player', 'team:team'))
             ->add('TARGETZONE_PLAYER_ENTER',  array(
-                'goid:int',
+                'zone:zone',
                 'zone_name', 'zone_x:float', 'zone_y:float',
                 'player:player', 'player_x:float', 'player_y:float',
                 'player_x_dir:int', 'player_y_dir:int',
                 'time:float',
             ))
             ->add('TARGETZONE_PLAYER_LEFT',   array(
-                'goid:int',
+                'zone:zone',
                 'zone_name', 'zone_x:float', 'zone_y:float',
                 'player:player', 'player_x:float', 'player_y:float',
                 'player_x_dir:int', 'player_y_dir:int'
             ))
-            ->add('TARGETZONE_TIMEOUT',       array('goid', 'zone_name', 'x:float', 'y:float'))
+            ->add('TARGETZONE_TIMEOUT',       array('zone:zone', 'zone_name', 'x:float', 'y:float'))
             ->add('VOTER',                    array('player:player', 'choice:bool', 'description'))
             ->add('VOTE_CREATED',             array('player:player', 'description'))
             ->add('WINZONE_PLAYER_ENTER',     array(
-                'goid:int',
+                'zone:zone',
                 'zone_name', 'zone_x:float', 'zone_y:float',
                 'player:player', 'player_x:float', 'player_y:float', 'player_x_dir:int', 'player_y_dir:int',
                 'time:float',
             ))
-            ->add('ZONE_COLLAPSED',           array('zone_id:int', 'zone_name', 'zone_x:float', 'zone_y:float'))
-            ->add('ZONE_SPAWNED',             array('goid:int', 'zone_name', 'x:float', 'y:float'))
+            ->add('ZONE_COLLAPSED',           array('zone:zone', 'zone_name', 'zone_x:float', 'zone_y:float'))
+            ->add('ZONE_SPAWNED',             array('zone:zone', 'zone_name', 'x:float', 'y:float'))
             ->add('WAIT_FOR_EXTERNAL_SCRIPT');
     }
 }

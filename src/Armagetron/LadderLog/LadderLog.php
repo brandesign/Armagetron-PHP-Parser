@@ -112,6 +112,7 @@ class LadderLog
         {
             foreach( $this->listeners[$name] as $handler )
             {
+                // calls ParserInterface::$handler($event)
                 call_user_func_array($handler, array($event));
             }
         }

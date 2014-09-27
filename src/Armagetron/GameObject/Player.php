@@ -14,6 +14,10 @@ class Player extends GameObject implements GameObjectInterface
     public $access_level    = 20;
     public $is_human        = false;
     public $team            = null;
+    public $x               = null;
+    public $y               = null;
+    public $x_dir           = null;
+    public $y_dir           = null;
 
     public $kills           = 0;
     public $team_kills      = 0;

@@ -6,6 +6,7 @@ use Armagetron\Exception\GameObjectNotFoundException;
 use Armagetron\GameObject\GameObjectCollection;
 use Armagetron\GameObject\Player;
 use Armagetron\GameObject\Team;
+use Armagetron\GameObject\Zone;
 
 class Event
 {
@@ -55,11 +56,18 @@ class Event
         }
     }
 
+    /**
+     * @return GameObjectCollection
+     */
     public function getGameObjects()
     {
         return $this->game_objects;
     }
 
+    /**
+     * @param $player
+     * @return Player
+     */
     public function parsePlayer($player)
     {
         $collection = $this->getGameObjects();
@@ -78,6 +86,10 @@ class Event
         return $player;
     }
 
+    /**
+     * @param $team
+     * @return Team
+     */
     public function parseTeam($team)
     {
         $collection = $this->getGameObjects();
@@ -96,9 +108,26 @@ class Event
         return $team;
     }
 
+    /**
+     * @param $zone
+     * @return Zone
+     */
     public function parseZone($zone)
     {
-        //return Zone::get($zone);
+        $collection = $this->getGameObjects();
+
+        try
+        {
+            $zone = $collection->getTeams()->getById($zone);
+        }
+        catch( GameObjectNotFoundException $e )
+        {
+            $zone = new Zone($zone);
+
+            $collection->add($zone);
+        }
+
+        return $zone;
     }
 
     public function parsePlayerList($players)
