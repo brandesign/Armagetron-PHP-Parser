@@ -72,7 +72,7 @@ class LadderLog
      */
     public function getGameObjects()
     {
-        return $this->getGameObjects();
+        return $this->game_objects;
     }
 
     public function handleData($data)
