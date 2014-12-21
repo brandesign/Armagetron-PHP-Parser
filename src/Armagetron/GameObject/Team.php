@@ -27,7 +27,7 @@ class Team extends GameObject implements GameObjectInterface
 
     public function removePlayer(Player $player)
     {
-        $this->players->remove($player->getId());
+        $this->players->delete($player->getId());
     }
 
     public function getPlayers()

@@ -34,19 +34,31 @@ class GameObjectCollection implements \Countable, \IteratorAggregate
 
     public function collectGarbage()
     {
+        $this->delete($this->garbage);
+        $this->garbage = array();
+    }
+
+    /**
+     * @param mixed $ids
+     */
+    public function delete($ids)
+    {
+        if( ! is_array($ids) )
+        {
+            $ids = array($ids);
+        }
+
         $iterator = $this->getIterator();
 
         while( $iterator->valid() )
         {
-            if( in_array($iterator->current()->getId(), $this->garbage) )
+            if( in_array($iterator->current()->getId(), $ids) )
             {
                 unset($this->objects[$iterator->key()]);
             }
 
             $iterator->next();
         }
-
-        $this->garbage = array();
     }
 
     public function getPlayers()
