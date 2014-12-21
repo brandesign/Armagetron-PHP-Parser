@@ -116,6 +116,8 @@ class LadderLog
                 call_user_func_array($handler, array($event));
             }
         }
+
+        $this->game_objects->collectGarbage();
     }
 
     public function register($trigger, ParserInterface $parser, $method_name)

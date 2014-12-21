@@ -8,6 +8,7 @@ class GameObjectCollection implements \Countable, \IteratorAggregate
 {
     /* @var GameObjectInterface[] $objects */
     protected $objects = array();
+    protected $garbage = array();
 
     public function __construct(array $objects = array())
     {
@@ -21,19 +22,31 @@ class GameObjectCollection implements \Countable, \IteratorAggregate
         return $this;
     }
 
+    /**
+     * Adds the id of the object to the garbage collection
+     *
+     * @param $id
+     */
     public function remove($id)
+    {
+        $this->garbage[] = $id;
+    }
+
+    public function collectGarbage()
     {
         $iterator = $this->getIterator();
 
         while( $iterator->valid() )
         {
-            if( $iterator->current()->getId() == $id )
+            if( in_array($iterator->current()->getId(), $this->garbage) )
             {
                 unset($this->objects[$iterator->key()]);
             }
 
             $iterator->next();
         }
+
+        $this->garbage = array();
     }
 
     public function getPlayers()
