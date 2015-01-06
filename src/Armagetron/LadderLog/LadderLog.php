@@ -105,11 +105,12 @@ class LadderLog
         }
 
         $line   = new Line($line);
-        $event  = EventFactory::createEvent($line, $this->event_collection, $this->game_objects);
         $name   = strtolower($line->getName());
 
         if( isset($this->listeners[$name]) )
         {
+            $event  = EventFactory::createEvent($line, $this->event_collection, $this->game_objects);
+
             foreach( $this->listeners[$name] as $handler )
             {
                 // calls ParserInterface::$handler($event)
