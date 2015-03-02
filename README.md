@@ -2,6 +2,16 @@
 
 A framework to handle ladderlog input from [Armagetron](http://armagetronad.net/)
 
+## Installation ##
+
+You can instal the parser using composer:
+
+```json
+"require": {
+    "armagetron/ladderlog-parser": "dev-master"
+},
+```
+
 ## Usage ##
 
 ```PHP
