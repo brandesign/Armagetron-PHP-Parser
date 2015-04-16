@@ -55,9 +55,15 @@ class StyCt extends Parser implements ParserInterface
 
     public function command(Event $event)
     {
-        $player = $event->player;
+        $handler = $this->getCustomCommandHandler();
+        $player  = $event->player;
 
         $player->access_level = $event->access_level;
+
+        if( $handler )
+        {
+            $handler->handleCommand($player, $event->command, $event->text);
+        }
     }
 
     public function invalidCommand(Event $event)

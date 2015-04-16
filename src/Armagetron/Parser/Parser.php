@@ -4,16 +4,24 @@ namespace Armagetron\Parser;
 
 use Armagetron\Event\Event;
 use Armagetron\GameObject\Player;
+use Armagetron\LadderLog\CustomCommand;
 use Armagetron\LadderLog\LadderLog;
 use Armagetron\Toolkit;
 
 class Parser implements ParserInterface
 {
-    public function __construct(ParserInterface $parser)
+    protected $custom_command_handler = null;
+
+    public function __construct(ParserInterface $parser, CustomCommand $custom_command_handler = null)
     {
         $this->setEventDefinitions();
         $this->registerParser($this);
         $this->registerParser($parser);
+
+        if( $custom_command_handler )
+        {
+            $this->registerCustomCommandHandler($custom_command_handler);
+        }
     }
 
     final public function run()
@@ -21,6 +29,9 @@ class Parser implements ParserInterface
         LadderLog::getInstance()->getLoop()->run();
     }
 
+    /**
+     * @param ParserInterface $parser
+     */
     final public function registerParser(ParserInterface $parser)
     {
         /* @var LadderLog $ladder_log */
@@ -38,6 +49,22 @@ class Parser implements ParserInterface
                 $ladder_log->register($underscore_name, $parser, $original_name);
             }
         }
+    }
+
+    /**
+     * @param CustomCommand $custom_command_handler
+     */
+    public function registerCustomCommandHandler(CustomCommand $custom_command_handler)
+    {
+        $this->custom_command_handler = $custom_command_handler;
+    }
+
+    /**
+     * @return null|CustomCommand
+     */
+    public function getCustomCommandHandler()
+    {
+        return $this->custom_command_handler;
     }
 
     public function deathFrag(Event $event)
@@ -59,7 +86,12 @@ class Parser implements ParserInterface
 
     public function command(Event $event)
     {
-        //CustomCommand::call($event->command, $event->text, $event->player);
+        $handler = $this->getCustomCommandHandler();
+
+        if( $handler )
+        {
+            $handler->handleCommand($event->player, $event->command, $event->text);
+        }
     }
 
     public function encoding(Event $event)
