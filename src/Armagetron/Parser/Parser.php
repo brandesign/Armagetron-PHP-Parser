@@ -21,7 +21,7 @@ class Parser implements ParserInterface
         LadderLog::getInstance()->getLoop()->run();
     }
 
-    final protected function registerParser(ParserInterface $parser)
+    final public function registerParser(ParserInterface $parser)
     {
         /* @var LadderLog $ladder_log */
         $ladder_log = LadderLog::getInstance();
